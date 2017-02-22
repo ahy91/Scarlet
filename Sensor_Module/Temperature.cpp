@@ -1,15 +1,15 @@
 #include <Arduino.h>
-#include <Temprature.h>
+#include <Temperature.h>
 
-Temprature::Temprature() {
+Temperature::Temperature() {
 	analogReference(INTERNAL);
 }
 	
-Temprature::Temprature(int pin) {
+Temperature::Temperature(int pin) {
 	temp_sensor_pin = pin;	
 	analogReference(INTERNAL);
 }
 	
-int Temprature::GetTemp() {
+int Temperature::GetTemp() {
 	return analogRead(temp_sensor_pin) / 9.31;
 }

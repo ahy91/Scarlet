@@ -3,16 +3,12 @@
 
 FireSensor::FireSensor()
 {
-	init();
+	pinMode(fire_pin, INPUT);
 }
 FireSensor::FireSensor(int fire_pin)
 {
-	init();
-	this.fire_pin = fire_pin;
-}
-void FireSensor::init()
-{
-	pinMode(fire_pin, INPUT);
+	FireSensor();
+	this->fire_pin = fire_pin;
 }
 int FireSensor::getValue()
 {

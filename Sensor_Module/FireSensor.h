@@ -1,10 +1,11 @@
-public class FireSensor {
-	private int fire_pin;
-	private int thres;
-	
-	public FireSensor();
-	public FireSensor(int fire_pin);
+class FireSensor {
+private:
+	int fire_pin;
+	int thres;
 
-	public void init();
-	public int getValue();
-}
+public:
+	FireSensor();
+	FireSensor(int fire_pin);
+
+	int getValue();
+};

@@ -2,8 +2,8 @@
 #include <UltraSonic.h>
 
 UltraSonic::UltraSonic(int trig_pin, int echo_pin) {
-	this.trig_pin = trig_pin;
-	this.echo_pin = echo_pin;
+	this->trig_pin = trig_pin;
+	this->echo_pin = echo_pin;
 }
 	
 void UltraSonic::InitSensor() {

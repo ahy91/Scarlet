@@ -1,11 +1,15 @@
-public class UltraSonic {
-	private int trig_pin;
-	private int echo_pin;
+class UltraSonic {
+private:
+	bool is_available;
+	int trig_pin;
+	int echo_pin;
 	
-	private float distance;
+	float distance;
 	
-	public void UltraSonic(int trig_pin, int echo_pin);
-	public void InitSensor();
-	public float GetDuration();
-	public float GetDistance();
-}
+public:
+	UltraSonic(int trig_pin, int echo_pin);
+	void InitSensor();
+	float GetDuration();
+	float GetDistance();
+	bool IsAvailable();
+};
