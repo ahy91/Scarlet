@@ -17,5 +17,8 @@ float UltraSonic::GetDuration() {
 }
 
 float UltraSonic::GetDistance() {
-	return ((float)(340 * GetDuration()) / 10000) / 2;
+	InitSensor();
+	float result = ((float)(340 * GetDuration()) / 10000) / 2;
+	delay(500);
+	return result;
 }
