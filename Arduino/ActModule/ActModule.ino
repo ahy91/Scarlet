@@ -1,9 +1,15 @@
+int motor_direction = 2;
+int motor_pwm = 4;
+
 void setup()
 {
+  pinMode(motor_direction, OUTPUT);
+  pinMode(motor_pwm, OUTPUT);
+
+  digitalWrite(motor_direction, HIGH);
 }
  
 void loop()
 {
-  // #. 명령을 수신한다.
-  // #. 수신한 명령에 따라 지정된 동작을 수행한다.
+  digitalWrite(motor_pwm, HIGH);
 }

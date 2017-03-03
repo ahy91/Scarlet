@@ -1,9 +1,10 @@
 #include <SoftwareSerial.h>
 #include "ESP8266.h"
  
-#define SSID "AndroidHotspot6368"
-#define PASS "11112222"
-#define DST_IP "8.8.8.8" //baidu.com
+#define SSID "Burf's Wibro"
+#define PASS "asdf1234"
+//#define DST_IP "52.79.219.126"
+#define DST_IP "143.248.5.153"
  
 SoftwareSerial esp8266Serial = SoftwareSerial(2, 3);
 ESP8266 wifi = ESP8266(esp8266Serial);
@@ -13,7 +14,7 @@ void setup()
     Serial.begin(9600);
  
     // ESP8266
-    esp8266Serial.begin(115200);
+    esp8266Serial.begin(9600);
     wifi.begin();
     wifi.setTimeout(3000);
  
@@ -54,7 +55,7 @@ void setup()
     // send
     Serial.print("send: ");
     Serial.println(getStatus(wifi.send("GET / HTTP/1.0\r\n\r\n")));
- 
+    //Serial.println(getStatus(wifi.send("GET /hello.php?value=2 HTTP/1.1\r\nHost: 52.79.219.126\r\n\r\n")));
 }
  
 void loop()
