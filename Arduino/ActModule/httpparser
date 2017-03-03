@@ -1,0 +1,13 @@
+function getOrder(payload)
+    -- GET /<url> 
+    -- Find slash
+    local command = string.match(payload, "/...");
+    print(command);
+    if command == "/on_" then
+        print("motor is on");
+    elseif command == "/off" then
+        print("motor is off");
+    else
+        print("add another command");
+    end     
+end

@@ -1,0 +1,83 @@
+-- Define motor pin
+A_SPEED = 1
+A_DIR = 3
+
+-- Define wifi inform.
+SSID = "Burf's Wibro"
+PASSWORD = "asdf1234"
+
+-- Connect wifi
+print("Connecting to WiFi access point...")
+wifi.setmode(wifi.STATION)
+wifi.sta.config(SSID, PASSWORD)
+wifi.sta.connect()
+
+function startup()
+    if file.open("init") == nil then
+        print("init.lua deleted or renamed")
+    else
+        print("Running")
+        file.close("init")
+        -- the actual application is stored in 'application.lua'
+        --dofile("webserver")
+        initWebServer()
+    end
+end
+
+-- Request ip to wibro till get ip
+tmr.alarm(1, 1000, 1, function()
+    if wifi.sta.getip() == nil then
+        print("Waiting for IP address...")
+    else
+        tmr.stop(1)
+        print("WiFi connection established, IP address: " .. wifi.sta.getip())
+        print("You have 3 seconds to abort")
+        print("Waiting...")
+        tmr.alarm(0, 3000, 0, startup)
+    end
+end)
+
+function initWebServer()
+    print("Creating server...")
+    srv = net.createServer(net.TCP)
+
+    srv:listen(8080, function(conn)
+        conn:on("receive", function(sck, payload)
+            getOrder(payload)
+            sck:send("HTTP/1.0 200 OK\r\nContent-Type: text/html\r\n\r\n") 
+            blinkLed()
+        end)
+        conn:on("sent", function(sck) sck:close() end)
+    end)
+
+    print("Webserver ready...")
+end
+
+function blinkLed()--
+    gpio.write(0, gpio.HIGH)
+    tmr.delay(1000000)   -- wait 1,000,000 us = 1 second
+    gpio.write(0, gpio.LOW)
+    tmr.delay(1000000)   -- wait 1,000,000 us = 1 second
+end
+
+function getOrder(payload)
+    -- GET /<url> 
+    -- Find slash
+    print(payload)
+    local command = string.match(payload, "/...")
+    print(command)
+    if command == "/on_" then
+        print("motor is on")        -- speed is middle
+        gpio.write(A_DIR, gpio.HIGH);
+    elseif command == "/off" then
+        print("motor is off")
+    elseif command == "fwd" then
+        print("dir is forward")
+    elseif command == "/rvs" then
+        print("reverse")
+    elseif command == "fst" then
+        print("make motor faster")
+    elseif command == "slw" then
+        print("make motor slower")
+    end     
+end
